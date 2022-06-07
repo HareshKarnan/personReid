@@ -14,4 +14,6 @@ visualize the training using tensorboard.
 
 ```tensorboard --logdir=lightning_logs/```
 
+## Run Inference
 
+The file `run_inference.py` has an example script of reading an image using opencv, converting it to pytorch tensor and running inference on the trained network by loading the model checkpoint file. 
