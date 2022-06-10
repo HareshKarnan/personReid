@@ -26,18 +26,9 @@ def cv2_img_to_tensor(cv2_img):
 # load the pytorch lightning model from checkpoint on CUDA
 # model = BarlowModel(latent_size=64).load_from_checkpoint('models/07-06-2022-12-49-07_.ckpt', latent_size=128).to(device=device)
 
-# model.load_state_dict({k.replace('visual_encoder.',''):v for k,v in torch.load('models/07-06-2022-12-49-07_.ckpt')['state_dict'].items()})
-model.load_state_dict(torch.load('models/model.pt'))
+model.load_state_dict({k.replace('visual_encoder.',''):v for k,v in torch.load('models/07-06-2022-12-49-07_.ckpt')['state_dict'].items()})
 model.to(device=device)
 
-# read the image from disk [you might have other ways to get this image of a person - from detectron/yolo/etc]
-img = cv2.imread('test/test.png', cv2.IMREAD_COLOR)
-
-# convert the opencv image to tensor
-tensor_img = cv2_img_to_tensor(img)
-
-# run inference
-descriptor = model(tensor_img.to(device=device))
-# descriptor = model.visual_encoder(tensor_img.to(device=device))
-
-print(descriptor.detach().cpu().numpy())
+# save pytorch model to .pt
+torch.save(model.state_dict(), 'models/model.pt')
+print('saved model')
