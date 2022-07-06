@@ -32,6 +32,8 @@ model.to(device=device)
 
 # read the image from disk [you might have other ways to get this image of a person - from detectron/yolo/etc]
 img = cv2.imread('test/test.png', cv2.IMREAD_COLOR)
+# convert BGR image to RGB
+img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 
 # convert the opencv image to tensor
 tensor_img = cv2_img_to_tensor(img)
